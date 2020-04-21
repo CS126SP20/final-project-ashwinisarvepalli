@@ -5,7 +5,7 @@
 
 namespace mylibrary {
 
-}  // namespace mylibrary
+}  // namespace mole
 
 
 #endif // FINALPROJECT_MYLIBRARY_EXAMPLE_H_

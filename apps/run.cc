@@ -2,9 +2,9 @@
 
 #include <cinder/app/App.h>
 #include <cinder/app/RendererGl.h>
+#include <mole/mole_leaderboard.h>
 
-#include "my_app.h"
-
+#include "mole_app.h"
 
 using cinder::app::App;
 using cinder::app::RendererGl;

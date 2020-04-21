@@ -1,17 +1,22 @@
 // Copyright (c) 2020 [Your Name]. All rights reserved.
 
-#include "my_app.h"
+#include "mole_app.h"
 
 #include <cinder/app/App.h>
 
-
 namespace myapp {
+
+const char kDbPath[] = "mole.db";
 
 using cinder::app::KeyEvent;
 
-MyApp::MyApp() { }
+MyApp::MyApp()
+  : leaderboard_{cinder::app::getAssetPath(kDbPath).string()} {}
 
-void MyApp::setup() { }
+
+void MyApp::setup() {
+
+}
 
 void MyApp::update() { }
 
