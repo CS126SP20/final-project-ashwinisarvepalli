@@ -3,6 +3,7 @@
 #include <cinder/app/App.h>
 #include <cinder/app/RendererGl.h>
 #include <mole/mole_leaderboard.h>
+#include <gflags/gflags.h>
 
 #include "mole_app.h"
 
@@ -15,6 +16,8 @@ namespace myapp {
 const int kSamples = 8;
 const int kWidth = 800;
 const int kHeight = 800;
+
+DEFINE_string(name, "Ashie", "the name of the player");
 
 void SetUp(App::Settings* settings) {
   settings->setWindowSize(kWidth, kHeight);

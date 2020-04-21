@@ -2,7 +2,9 @@
  - **4/20/20**
    - Set up project files and namespace
    - Set up the database SQL for game
-   - Created the leaderboard .h and .cc required
+     - added to the necessary CMakeLists
+   - Created the leaderboard .h and .cc to add more functions once the game works
 
- - **4/21/20** Fixed typos in documentation, posted it on Piazza
+ - **4/21/20**
+   - added gflags external library for project use and working
 ---

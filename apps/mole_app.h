@@ -18,7 +18,11 @@ class MyApp : public cinder::app::App {
   void keyDown(cinder::app::KeyEvent) override;
 
  private:
+  void DrawBackground() const;
+
+ private:
   mole::LeaderBoard leaderboard_;
+  const std::string player_name_;
 };
 
 }  // namespace myapp
