@@ -11,6 +11,9 @@
 #include <cinder/Text.h>
 #include <cinder/Vector.h>
 
+#include "cinder/ImageIo.h"
+#include "cinder/gl/Texture.h"
+
 #include <algorithm>
 #include <chrono>
 #include <cmath>
@@ -21,11 +24,14 @@ using cinder::Color;
 const char kDbPath[] = "mole.db";
 
 using cinder::app::KeyEvent;
+using namespace ci;
+using namespace ci::app;
 
 DECLARE_string(name);
 
 MyApp::MyApp()
   :  player_name_{FLAGS_name},
+     myImage{gl::Texture2d::create(loadImage( loadAsset( "cosmicbg.jpg")))},
      leaderboard_{cinder::app::getAssetPath(kDbPath).string()} {}
 
 
@@ -55,15 +61,19 @@ void PrintText(const std::string &text, const C &color, const cinder::ivec2 &siz
 
 void MyApp::draw() {
   DrawBackground();
-  const cinder::ivec2 size = {250, 30};
-  const cinder::vec2 loc = {110, 70};
-  PrintText(player_name_, Color(1,0,0), size, loc);
+//  const cinder::ivec2 size = {250, 30};
+//  const cinder::vec2 loc = {110, 70};
+//  PrintText(player_name_, Color(0,0,1), size, loc);
 }
 
 void MyApp::keyDown(KeyEvent event) { }
 
 void MyApp::DrawBackground() const {
-  cinder::gl::clear(Color(0.2, 0.6, 0.7));
+  cinder::gl::draw(myImage, getWindowBounds());
+//  cinder::gl::clear(Color(0.2, 0.6, 0.7));
+}
+void MyApp::DrawTiles() const {
+
 }
 
 }  // namespace myapp

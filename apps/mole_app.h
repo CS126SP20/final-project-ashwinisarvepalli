@@ -4,8 +4,8 @@
 #define FINALPROJECT_APPS_MYAPP_H_
 
 #include <cinder/app/App.h>
+#include <cinder/gl/Texture.h>
 #include <mole/mole_leaderboard.h>
-
 
 namespace myapp {
 
@@ -19,10 +19,14 @@ class MyApp : public cinder::app::App {
 
  private:
   void DrawBackground() const;
+  void DrawTiles() const;
 
  private:
   mole::LeaderBoard leaderboard_;
   const std::string player_name_;
+  cinder::gl::Texture2dRef myImage;
+
+
 };
 
 }  // namespace myapp

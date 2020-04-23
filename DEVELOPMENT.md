@@ -7,4 +7,10 @@
 
  - **4/21/20**
    - added gflags external library for project use and working
+   
+ - **4/22/20**
+   - Created the background
+   - added location header and cc for keeping track of tile location
+   - created tile and engince classes 
+   - populated the header files with functions that are necessary
 ---

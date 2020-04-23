@@ -1,7 +1,7 @@
 // Copyright (c) 2020 CS126SP20. All rights reserved.
 
-#ifndef MOLE_LEADERBOARD_H_
-#define MOLE_LEADERBOARD_H_
+#ifndef FINALPROJECT_LEADERBOARD_H_
+#define FINALPROJECT_LEADERBOARD_H_
 
 #include <sqlite_modern_cpp.h>
 
