@@ -11,6 +11,13 @@
  - **4/22/20**
    - Created the background
    - added location header and cc for keeping track of tile location
-   - created tile and engince classes 
+   - created tile and engine classes 
    - populated the header files with functions that are necessary
+   
+ - **4/27/20**
+   - Added audio file and checked if clicking is working for audio to play
+   - Created a Player Class
+   - made an enum class for difficulty type to use potentially later
+   - added tilesize flag for the piano tiles
+   - added to Engine and Tile Class important functions for checking if mouse in the bounds of the tile
 ---

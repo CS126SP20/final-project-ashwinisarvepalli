@@ -21,6 +21,7 @@ class Tile {
   ~Tile();
 
   Location GetLocation() const;
+  bool IsInTile(size_t mouse_x, size_t mouse_y, size_t tile_size);
 
  private:
   Location location_;
