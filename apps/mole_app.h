@@ -30,14 +30,21 @@ class MyApp : public cinder::app::App {
  private:
   void DrawBackground() const;
   void DrawGameOver();
+  void DrawHome();
   void DrawTile() const;
   void DrawScore();
   void ResetGame();
 
  private:
+  mole::Tile easy{mole::Location{200, 250}, 400, 100};
+  mole::Tile medium{mole::Location{200, 400}, 400, 100};
+  mole::Tile hard{mole::Location{200, 550}, 400, 100};
   mole::Engine engine;
   mole::LeaderBoard leaderboard;
   cinder::audio::VoiceRef background_voice;
+  cinder::audio::SourceFileRef e_src;
+  cinder::audio::SourceFileRef m_src;
+  cinder::audio::SourceFileRef h_src;
   const std::string player_name;
   cinder::gl::Texture2dRef my_image;
   cinder::gl::TextureRef tile_image;
@@ -46,11 +53,11 @@ class MyApp : public cinder::app::App {
   const size_t tile_size;
   GameState game_state;
   bool printed_game_over;
+  bool printed_home;
   std::vector<mole::Player> top_players;
   std::vector<mole::Player> personal_highs;
-  const double draw_tile_speed;
-  const std::string song_name;
-  size_t length_of_game;
+  double draw_tile_speed;
+  std::string song_name;
 };
 
 }  // namespace myapp

@@ -26,4 +26,8 @@
    - added draw gameover
    - added logic to leaderboard
    - finished functionality of game
+   - downloaded more songs for level difficult of game
+   - changed the tile class to incorporate the home screen buttons
+   - changed the location class to handle pixels also
+   - created a home menu for choosing game difficulty
 ---

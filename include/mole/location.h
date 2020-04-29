@@ -10,24 +10,15 @@ namespace mole {
 class Location {
 
  public:
-  Location(int row, int col);
-
-  // Comparison operators.
-  bool operator()(const Location& lhs, const Location& rhs) const;
-  bool operator==(const Location& rhs) const;
-  bool operator!=(const Location& rhs) const;
-  bool operator<(const Location& rhs) const;
-  bool operator<=(const Location& rhs) const;
-  bool operator>(const Location& rhs) const;
-  bool operator>=(const Location& rhs) const;
+  Location(size_t x, size_t y);
 
   // Accessors.
-  int Row() const;
-  int Col() const;
+  int GetX() const;
+  int GetY() const;
 
  private:
-  int row_;
-  int col_;
+  int x;
+  int y;
 };
 
 }  // namespace mole

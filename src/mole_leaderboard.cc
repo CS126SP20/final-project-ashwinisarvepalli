@@ -38,14 +38,11 @@ std::vector<Player> GetPlayers(sqlite::database_binder *rows) {
   return players;
 }
 
-//std::vector<std::string> GetSongName() {
-//
-//}
-
 std::vector<Player> LeaderBoard::RetrieveHighScores(const size_t limit,
                                                     const std::string &s_name) {
   try {
-    auto rows = db_ << u"SELECT * FROM leaderboard WHERE song_name= ? ORDER BY score DESC LIMIT ?"
+    auto rows = db_ << u"SELECT * FROM leaderboard WHERE song_name= ? ORDER BY "
+                       u"score DESC LIMIT ?"
                     << s_name << limit;
     return GetPlayers(&rows);
   } catch (const std::exception &e) {
@@ -56,11 +53,14 @@ std::vector<Player> LeaderBoard::RetrieveHighScores(const size_t limit,
 }
 
 std::vector<Player> LeaderBoard::RetrieveHighScores(const Player &player,
-                                               const size_t limit, const std::string &s_name) {
+                                                    const size_t limit,
+                                                    const std::string &s_name) {
   try {
-    auto rows = db_ << u"SELECT * FROM leaderboard WHERE name= ? and song_name= ? ORDER BY "
-                       u"score DESC LIMIT ?"
-                    << player.name << s_name << limit;
+    auto rows =
+        db_
+        << u"SELECT * FROM leaderboard WHERE name= ? and song_name= ? ORDER BY "
+           u"score DESC LIMIT ?"
+        << player.name << s_name << limit;
     return GetPlayers(&rows);
   } catch (const std::exception &e) {
     std::cout << "not able to retrieve high scores of player" << std::endl;
@@ -69,4 +69,4 @@ std::vector<Player> LeaderBoard::RetrieveHighScores(const Player &player,
   }
 }
 
-}
+}  // namespace mole

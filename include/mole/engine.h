@@ -5,10 +5,11 @@
 #ifndef FINALPROJECT_ENGINE_H
 #define FINALPROJECT_ENGINE_H
 
-#include "location.h"
-#include "tile.h"
 #include <cstdlib>
 #include <random>
+
+#include "location.h"
+#include "tile.h"
 
 namespace mole {
 
@@ -33,13 +34,13 @@ class Engine {
   Location GetRandomLocation();
 
  private:
-  const size_t width_;
-  const size_t height_;
+  const size_t width;
+  const size_t height;
+  const size_t tile_size;
   Tile tile;
   size_t score;
-  size_t tile_size;
 };
 
-}
+}  // namespace mole
 
 #endif  // FINALPROJECT_ENGINE_H

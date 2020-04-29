@@ -4,39 +4,10 @@
 
 namespace mole {
 
-Location::Location(int row, int col) : row_(row), col_(col) {}
+Location::Location(size_t x, size_t y) : x(x), y(y) {}
 
-bool Location::operator==(const Location& rhs) const {
-  return row_ == rhs.row_ && col_ == rhs.col_;
-}
+int Location::GetX() const { return x; }
 
-bool Location::operator()(const Location& lhs, const Location& rhs) const {
-  return lhs <= rhs;
-}
-
-bool Location::operator!=(const Location& rhs) const {
-  return !(*this == rhs);
-}
-
-bool Location::operator<(const Location& rhs) const {
-  return row_ < rhs.row_ || (rhs.row_ >= row_ && col_ < rhs.col_);
-}
-
-bool Location::operator<=(const Location& rhs) const {
-  return !(rhs < *this);
-}
-
-bool Location::operator>(const Location& rhs) const {
-  return rhs < *this;
-}
-
-bool Location::operator>=(const Location& rhs) const {
-  return !(*this < rhs);
-}
-
-int Location::Row() const { return row_; }
-
-int Location::Col() const { return col_; }
-
+int Location::GetY() const { return y; }
 
 }  // namespace mole

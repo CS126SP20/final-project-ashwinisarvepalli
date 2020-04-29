@@ -24,7 +24,6 @@ void SetUp(App::Settings* settings) {
   const int height = static_cast<int>(FLAGS_size * FLAGS_tilesize);
 
   settings->setWindowSize(width, height);
-//  settings->setResizable(false);
   settings->setTitle("My CS 126 Application");
 }
 

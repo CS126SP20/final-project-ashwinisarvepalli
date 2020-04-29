@@ -11,7 +11,8 @@ namespace mole {
 // Represents a Tile.
 class Tile {
  public:
-  explicit Tile(const Location&);
+
+  Tile(const Location&, size_t w, size_t h);
 
   // Rule of Five.
   Tile(const Tile&);
@@ -21,10 +22,16 @@ class Tile {
   ~Tile();
 
   Location GetLocation() const;
-  bool IsInTile(size_t mouse_x, size_t mouse_y, size_t tile_size);
+  bool IsInTile(size_t mouse_x, size_t mouse_y);
+  bool IsInButtonTile(size_t mouse_x, size_t mouse_y);
+
+  size_t GetWidth();
+  size_t GetHeight();
 
  private:
-  Location location_;
+  Location location;
+  size_t width;
+  size_t height;
 };
 
 }
