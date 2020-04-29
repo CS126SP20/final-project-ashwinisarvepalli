@@ -17,7 +17,13 @@
  - **4/27/20**
    - Added audio file and checked if clicking is working for audio to play
    - Created a Player Class
-   - made an enum class for difficulty type to use potentially later
    - added tilesize flag for the piano tiles
    - added to Engine and Tile Class important functions for checking if mouse in the bounds of the tile
+   - tiles appear on the screen matching to the music
+   
+ - **4/28/20**
+   - finished logic for if mouse clicked the tile and uodate score
+   - added draw gameover
+   - added logic to leaderboard
+   - finished functionality of game
 ---

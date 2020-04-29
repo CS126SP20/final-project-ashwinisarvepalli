@@ -13,6 +13,7 @@ Engine::Engine(size_t width, size_t height, size_t tile_size)
     : width_{width},
       height_{height},
       tile_size{tile_size},
+      score{0},
       tile{GetRandomLocation()}
       {
   Reset();
@@ -43,6 +44,7 @@ void Engine::Step() {
 
 void Engine::Reset() {
   Location location = GetRandomLocation();
+  score = 0;
 }
 
 size_t Engine::GetScore() const { return score; }

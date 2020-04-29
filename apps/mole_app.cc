@@ -21,6 +21,7 @@
 
 namespace myapp {
 using cinder::Color;
+const size_t kLimit = 3;
 const char kDbPath[] = "mole.db";
 
 using cinder::app::KeyEvent;
@@ -36,31 +37,34 @@ MyApp::MyApp()
      engine{FLAGS_size, FLAGS_size, FLAGS_tilesize},
      game_state{GameState::kPlaying},
      tile_size{FLAGS_tilesize},
-     draw_tile_speed{1.7999},
+     draw_tile_speed{0.5605},
+     song_name{"Eye of the Tiger"},
      length_of_game{0},
-     my_image{gl::Texture2d::create(loadImage( loadAsset( "cosmicbg.jpg")))},
+     my_image{gl::Texture2d::create(loadImage( loadAsset( "cosmic.jpg")))},
+     tile_image{gl::Texture::create(loadImage( loadAsset( "piano.jpg")))},
      leaderboard{cinder::app::getAssetPath(kDbPath).string()} {}
 
 
 void MyApp::setup() {
-  timer.start();
   cinder::audio::SourceFileRef b_src =
-      cinder::audio::load(cinder::app::loadAsset("tigertrim.mp3"));
+      cinder::audio::load(cinder::app::loadAsset("tiger.mp3"));
   background_voice = cinder::audio::Voice::create(b_src);
   background_voice->start();
 }
 
 void MyApp::update() {
-  auto mp = getWindow()->getMousePos();
   if (game_state == GameState::kGameOver || !background_voice->isPlaying()) {
-    //populate top players
-    //populate personal highs
+    if (top_players.empty() || personal_highs.empty()) {
+      leaderboard.AddScoreToLeaderBoard(
+          {player_name, engine.GetScore()}, song_name);
+      top_players = leaderboard.RetrieveHighScores(kLimit, song_name);
+      personal_highs = leaderboard.RetrieveHighScores(
+          {player_name, engine.GetScore()}, kLimit, song_name);
+      // It is crucial the this vector be populated, given that `kLimit` > 0.
+      assert(!top_players.empty());
+    }
     return;
   }
-
-//  if (mp[0] > 5) {
-//    background_voice -> start();
-//  }
 }
 
 template <typename C>
@@ -69,7 +73,7 @@ void PrintText(const std::string &text, const C &color, const cinder::ivec2 &siz
   cinder::gl::color(color);
   auto box = cinder::TextBox()
       .alignment(cinder::TextBox::CENTER)
-      .font(cinder::Font("Arial", 30))
+      .font(cinder::Font("Arial", 25))
       .size(size)
       .color(color)
       .backgroundColor(cinder::ColorA(0, 0, 0, 0))
@@ -82,29 +86,75 @@ void PrintText(const std::string &text, const C &color, const cinder::ivec2 &siz
 }
 
 void MyApp::draw() {
-  DrawBackground();
+  cinder::gl::enableAlphaBlending();
   if (game_state == GameState::kGameOver) {
-    if (printed_game_over) {
-      DrawGameOver();
-      //draw game over
-    }
+    if (!printed_game_over)
+      cinder::gl::clear(Color::black());
+    background_voice->stop();
+    DrawGameOver();
     return;
   }
-//  current_time = timer.getSeconds();
-//  current_time = std::chrono::duration_cast<std::chrono::seconds>(
-//      std::chrono::system_clock::now().time_since_epoch())
-//      .count();
+  cinder::gl::clear();
+  DrawBackground();
   current_time = ci::app::getElapsedSeconds();
   DrawTile();
   if ((current_time - start_time) > draw_tile_speed) {
     engine.Step();
     start_time = current_time;
   }
-//  const cinder::ivec2 size = {250, 30};
-//  const cinder::vec2 loc = {110, 70};
-//  PrintText(player_name_, Color(0,0,1), size, loc);
+  DrawScore();
 }
 
+void MyApp::DrawBackground() const {
+  cinder::gl::draw(my_image, getWindowBounds());
+}
+
+void MyApp::DrawTile() const {
+  Color::white();
+  const mole::Location loc = engine.GetTile().GetLocation();
+  cinder::gl::draw(tile_image, Rectf(tile_size * loc.Row(),
+                                     tile_size * loc.Col(),
+                                     tile_size * loc.Row() + tile_size,
+                                     tile_size * loc.Col() + tile_size));
+}
+
+void MyApp::DrawScore() {
+  const std::string text = std::to_string(engine.GetScore());
+  const Color color = Color::white();
+  const cinder::ivec2 size = {250, 30};
+  const cinder::vec2 loc = {110, 70};
+  PrintText("Score: " + text, color , size, loc);
+}
+
+void MyApp::DrawGameOver() {
+  if (printed_game_over)
+    return;
+  if (top_players.empty() || personal_highs.empty())
+    return;
+  const cinder::vec2 center = getWindowCenter();
+  const cinder::ivec2 size = {600, 30};
+  const Color color = Color::white();
+  size_t row = 0;
+  PrintText("Game Over :(", color, size, {center.x, center.y - (++row) * 250});
+  //print the high scores
+  PrintText("High Scores: ", color, {400, 40},
+            {center.x, center.y - (++row) * 90});
+  for (const mole::Player &player : top_players) {
+    std::stringstream ss;
+    ss << song_name << " - " << player.name << " - " << player.score;
+    PrintText(ss.str(), color, size, {center.x, center.y - (++row) * 30});
+  }
+  //print the personal high scores
+  size_t row2 = 0;
+  PrintText("Personal Highs: ", color, {400, 40},
+            {center.x, center.y});
+  for (const mole::Player &player : personal_highs) {
+    std::stringstream ss;
+    ss << song_name << " - " << player.name << " - " << player.score;
+    PrintText(ss.str(), color, size, {center.x, center.y + (++row2) * 30});
+  }
+  printed_game_over = true;
+}
 
 void MyApp::mouseDown(MouseEvent event) {
   //event.isRight() || event.isLeft() || event.isMiddle()
@@ -114,27 +164,19 @@ void MyApp::mouseDown(MouseEvent event) {
       game_state = GameState::kGameOver;
     }
   }
+  if (event.isLeft() && event.isAltDown()) {
+    ResetGame();
+  }
 }
 
-void MyApp::DrawBackground() const {
-  cinder::gl::draw(my_image, getWindowBounds());
-//  cinder::gl::clear(Color(0.2, 0.6, 0.7));
-}
-
-void MyApp::DrawTile() const {
-  Color::white();
-  const mole::Location loc = engine.GetTile().GetLocation();
-  cinder::gl::drawSolidRect(Rectf(tile_size * loc.Row(),
-                                  tile_size * loc.Col(),
-                                  tile_size * loc.Row() + tile_size,
-                                  tile_size * loc.Col() + tile_size));
-}
-
-void MyApp::DrawGameOver() {
-  if (printed_game_over)
-    return;
-  if (top_players.empty() || personal_highs.empty())
-    return;
+void MyApp::ResetGame() {
+  engine.Reset();
+  printed_game_over = false;
+  game_state = GameState::kPlaying;
+  top_players.clear();
+  personal_highs.clear();
+  current_time = 0;
+  start_time = 0;
 }
 
 }  // namespace myapp

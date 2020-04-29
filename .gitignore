@@ -145,6 +145,10 @@ _deps
 
 # Don't track database files.
 # assets/*.db
-tigertrim.mp3
-patienceshort.mp3
+assets/tiger.mp3
+assets/patience.mp3
+assets/cosmic.jpg
+assets/countdown.mp3
+assets/life.mp3
+assets/piano.jpg
 # assets/*.sqlite*
