@@ -11,7 +11,7 @@ namespace mole {
 // Represents a Tile.
 class Tile {
  public:
-
+  // Represents a Tile that has a location and size attributes to draw later
   Tile(const Location&, size_t w, size_t h);
 
   // Rule of Five.
@@ -22,9 +22,10 @@ class Tile {
   ~Tile();
 
   Location GetLocation() const;
+  // Checks if a mouse click is within a tile
   bool IsInTile(size_t mouse_x, size_t mouse_y);
-  bool IsInButtonTile(size_t mouse_x, size_t mouse_y);
 
+  // Accessors
   size_t GetWidth();
   size_t GetHeight();
 
@@ -34,6 +35,6 @@ class Tile {
   size_t height;
 };
 
-}
+}  // namespace mole
 
 #endif  // FINALPROJECT_TILE_H

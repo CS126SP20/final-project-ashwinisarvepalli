@@ -22,7 +22,7 @@
    - tiles appear on the screen matching to the music
    
  - **4/28/20**
-   - finished logic for if mouse clicked the tile and uodate score
+   - finished logic for if mouse clicked the tile and update score
    - added draw gameover
    - added logic to leaderboard
    - finished functionality of game
@@ -30,4 +30,10 @@
    - changed the tile class to incorporate the home screen buttons
    - changed the location class to handle pixels also
    - created a home menu for choosing game difficulty
+   
+ - **4/29/20**
+   - changed the code for the piano tile so rather than grid, similar to the home screen tile drawing
+   - worked on testing
+   - added necessary comment code
+   - finished all game functionality with home screen, game scree, and game over screen
 ---

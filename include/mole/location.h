@@ -8,7 +8,6 @@
 namespace mole {
 // Represents a location on the board.
 class Location {
-
  public:
   Location(size_t x, size_t y);
 
@@ -23,5 +22,4 @@ class Location {
 
 }  // namespace mole
 
-
-#endif // FINALPROJECT_MYLIBRARY_EXAMPLE_H_
+#endif  // FINALPROJECT_MYLIBRARY_EXAMPLE_H_

@@ -16,7 +16,7 @@ namespace mole {
 class Engine {
  public:
   // Creates a new mole game of the given size.
-  Engine(size_t width, size_t height, size_t tile_size);
+  Engine(size_t length, size_t tile_size);
 
   // Start the game over.
   void Reset();
@@ -24,9 +24,11 @@ class Engine {
   // Executes tile change pos
   void Step();
 
-  // Checks if the mouse is in the tile step
+  // Checks if the mouse is in the tile step and increments the score
+  // accordingly
   bool MouseInTile(size_t mouse_x, size_t mouse_y);
 
+  // Accessors
   size_t GetScore() const;
   Tile GetTile() const;
 
@@ -34,8 +36,8 @@ class Engine {
   Location GetRandomLocation();
 
  private:
-  const size_t width;
-  const size_t height;
+  // will always be a square tile so only one attribute length
+  const size_t length;
   const size_t tile_size;
   Tile tile;
   size_t score;

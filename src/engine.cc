@@ -9,9 +9,8 @@
 
 namespace mole {
 
-Engine::Engine(size_t width, size_t height, size_t tile_size)
-    : width{width},
-      height{height},
+Engine::Engine(size_t length, size_t tile_size)
+    : length{length},
       tile_size{tile_size},
       score{0},
       tile{GetRandomLocation(), tile_size, tile_size} {
@@ -20,8 +19,8 @@ Engine::Engine(size_t width, size_t height, size_t tile_size)
 
 Location Engine::GetRandomLocation() {
   Location final_location(0, 0);
-  auto r = cinder::Rand::randInt(height);
-  auto c = cinder::Rand::randInt(width);
+  auto r = cinder::Rand::randInt((length * tile_size) - tile_size);
+  auto c = cinder::Rand::randInt((length * tile_size) - tile_size);
   Location loc(r, c);
   final_location = loc;
   return final_location;

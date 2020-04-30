@@ -3,13 +3,13 @@
 #ifndef FINALPROJECT_APPS_MYAPP_H_
 #define FINALPROJECT_APPS_MYAPP_H_
 
+#include <cinder/Timer.h>
 #include <cinder/app/App.h>
 #include <cinder/audio/Voice.h>
 #include <cinder/gl/Texture.h>
 #include <mole/engine.h>
 #include <mole/mole_leaderboard.h>
 #include <mole/player.h>
-#include <cinder/Timer.h>
 
 namespace myapp {
 
@@ -50,7 +50,6 @@ class MyApp : public cinder::app::App {
   cinder::gl::TextureRef tile_image;
   size_t current_time;
   size_t start_time;
-  const size_t tile_size;
   GameState game_state;
   bool printed_game_over;
   bool printed_home;

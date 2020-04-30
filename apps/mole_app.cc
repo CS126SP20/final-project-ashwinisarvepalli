@@ -32,9 +32,8 @@ DECLARE_uint32(size);
 
 MyApp::MyApp()
     : player_name{FLAGS_name},
-      engine{FLAGS_size, FLAGS_size, FLAGS_tilesize},
+      engine{FLAGS_size, FLAGS_tilesize},
       game_state{GameState::kHome},
-      tile_size{FLAGS_tilesize},
       my_image{gl::Texture2d::create(loadImage(loadAsset("cosmic.jpg")))},
       tile_image{gl::Texture::create(loadImage(loadAsset("piano.jpg")))},
       leaderboard{cinder::app::getAssetPath(kDbPath).string()} {}
@@ -134,10 +133,10 @@ void MyApp::DrawHome() {
 
 void MyApp::DrawTile() const {
   const mole::Location loc = engine.GetTile().GetLocation();
-  cinder::gl::draw(tile_image,
-                   Rectf(tile_size * loc.GetX(), tile_size * loc.GetY(),
-                         tile_size * loc.GetX() + tile_size,
-                         tile_size * loc.GetY() + tile_size));
+  cinder::gl::draw(
+      tile_image,
+      Rectf(loc.GetX(), loc.GetY(), loc.GetX() + engine.GetTile().GetWidth(),
+            loc.GetY() + engine.GetTile().GetHeight()));
 }
 
 void MyApp::DrawScore() {
@@ -178,18 +177,18 @@ void MyApp::DrawGameOver() {
 void MyApp::mouseDown(MouseEvent event) {
   if (game_state == GameState::kHome) {
     if (event.isLeft()) {
-      if (easy.IsInButtonTile(event.getX(), event.getY())) {
+      if (easy.IsInTile(event.getX(), event.getY())) {
         draw_tile_speed = 1.10;
         song_name = "The Time of My Life";
         background_voice->start();
         game_state = GameState::kPlaying;
-      } else if (medium.IsInButtonTile(event.getX(), event.getY())) {
+      } else if (medium.IsInTile(event.getX(), event.getY())) {
         background_voice = cinder::audio::Voice::create(m_src);
         draw_tile_speed = 0.5605;
         song_name = "Eye of The Tiger";
         background_voice->start();
         game_state = GameState::kPlaying;
-      } else if (hard.IsInButtonTile(event.getX(), event.getY())) {
+      } else if (hard.IsInTile(event.getX(), event.getY())) {
         background_voice = cinder::audio::Voice::create(h_src);
         draw_tile_speed = 0.056;
         song_name = "The Final Countdown";

@@ -20,19 +20,22 @@ class LeaderBoard {
   // Adds a player to the leaderboard.
   void AddScoreToLeaderBoard(const Player&, const std::string& s_name);
 
-  // Returns a list of the players with the highest scores, in decreasing order.
-  // The size of the list should be no greater than `limit`.
-  std::vector<Player> RetrieveHighScores(const size_t limit, const std::string& s_name);
+  // Returns a list of the players with the highest scores, in decreasing order
+  // of the given song name. The size of the list should be no greater than
+  // `limit`.
+  std::vector<Player> RetrieveHighScores(const size_t limit,
+                                         const std::string& s_name);
 
-  // Returns a list of the players with the highest scores, in decreasing order,
-  // that have the same `name` as the input player name.
-  // The size of the list should be no greater than `limit`.
-  std::vector<Player> RetrieveHighScores(const Player&, const size_t limit, const std::string &s_name);
+  // Returns a list of the players with the highest scores of the given song
+  // name, in decreasing order, that have the same `name` as the input player
+  // name. The size of the list should be no greater than `limit`.
+  std::vector<Player> RetrieveHighScores(const Player&, const size_t limit,
+                                         const std::string& s_name);
 
  private:
   sqlite::database db_;
 };
 
-}  // namespace snake
+}  // namespace mole
 
 #endif  // SNAKE_LEADERBOARD_H_

@@ -10,17 +10,10 @@ Tile::Tile(const Location& loc, size_t w, size_t h)
 
 Location Tile::GetLocation() const { return location; }
 
-bool Tile::IsInTile(size_t mouse_x, size_t mouse_y) {
-  return ((mouse_x > (location.GetX() * width)) &&
-          (mouse_x < (location.GetX() * width + width))) &&
-         ((mouse_y > (location.GetY() * height)) &&
-          (mouse_y < (location.GetY() * height + height)));
-}
-
 size_t Tile::GetWidth() { return width; }
 size_t Tile::GetHeight() { return height; }
 
-bool Tile::IsInButtonTile(size_t mouse_x, size_t mouse_y) {
+bool Tile::IsInTile(size_t mouse_x, size_t mouse_y) {
   return ((mouse_x > location.GetX()) &&
           (mouse_x < (location.GetX() + width))) &&
          ((mouse_y > location.GetY()) &&

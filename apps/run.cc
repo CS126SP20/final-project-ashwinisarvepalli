@@ -2,14 +2,12 @@
 
 #include <cinder/app/App.h>
 #include <cinder/app/RendererGl.h>
-#include <mole/mole_leaderboard.h>
 #include <gflags/gflags.h>
 
 #include "mole_app.h"
 
 using cinder::app::App;
 using cinder::app::RendererGl;
-
 
 namespace myapp {
 
@@ -28,7 +26,6 @@ void SetUp(App::Settings* settings) {
 }
 
 }  // namespace myapp
-
 
 // This is a macro that runs the application.
 CINDER_APP(myapp::MyApp,
