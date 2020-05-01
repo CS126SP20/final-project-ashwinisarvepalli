@@ -4,8 +4,8 @@
 
 #include <cinder/Rand.h>
 #include <mole/engine.h>
-#include <cstdlib>
 
+#include <cstdlib>
 #include <set>
 
 namespace mole {
@@ -20,8 +20,6 @@ Engine::Engine(size_t length, size_t tile_size)
 
 Location Engine::GetRandomLocation() {
   Location final_location(0, 0);
-  //check if seeded or not, make sure its seeded
-  //make it seeded if necessary
   srand(std::chrono::system_clock::now().time_since_epoch().count());
   auto r = cinder::Rand::randInt((length * tile_size) - tile_size);
   auto c = cinder::Rand::randInt((length * tile_size) - tile_size);
@@ -32,7 +30,10 @@ Location Engine::GetRandomLocation() {
 
 bool Engine::MouseInTile(size_t mouse_x, size_t mouse_y) {
   if (tile.IsInTile(mouse_x, mouse_y)) {
-    score++;
+    if (!tile.IsClicked()) {
+      score++;
+      tile.SetClicked(true);
+    }
     return true;
   }
   return false;
@@ -40,10 +41,7 @@ bool Engine::MouseInTile(size_t mouse_x, size_t mouse_y) {
 
 void Engine::Step() { tile = Tile(GetRandomLocation(), tile_size, tile_size); }
 
-void Engine::Reset() {
-  Location location = GetRandomLocation();
-  score = 0;
-}
+void Engine::Reset() { score = 0; }
 
 size_t Engine::GetScore() const { return score; }
 Tile Engine::GetTile() const { return tile; }

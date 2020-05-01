@@ -19,6 +19,8 @@ bool Tile::IsInTile(size_t mouse_x, size_t mouse_y) {
          ((mouse_y > location.GetY()) &&
           (mouse_y < (location.GetY() + height)));
 }
+bool Tile::IsClicked() { return is_clicked; }
+void Tile::SetClicked(bool val) { is_clicked = val; }
 
 Tile::Tile(const Tile& tile) = default;
 Tile::Tile(mole::Tile&& tile) noexcept = default;

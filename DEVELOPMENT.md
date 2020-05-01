@@ -41,4 +41,9 @@
    - Added a seed for the random tile location generator so it was different each time the game ran
    - Checked and fixed bugs in the mole_app.cc
    - Added information to the README.md and created the PROPOSAL.md
+   
+ - **5/1/20**
+   - Changed tile class so players can only score 1 point per tile
+   - Added more tests
+   - Added final information to the README.md and PROPOSAL.md
 ---

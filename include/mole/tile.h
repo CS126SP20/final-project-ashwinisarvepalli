@@ -28,11 +28,14 @@ class Tile {
   // Accessors
   size_t GetWidth();
   size_t GetHeight();
+  bool IsClicked();
+  void SetClicked(bool val);
 
  private:
   Location location;
   size_t width;
   size_t height;
+  bool is_clicked = false;
 };
 
 }  // namespace mole
