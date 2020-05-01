@@ -42,7 +42,6 @@ void MyApp::setup() {
   e_src = cinder::audio::load(cinder::app::loadAsset("life.mp3"));
   m_src = cinder::audio::load(cinder::app::loadAsset("tiger.mp3"));
   h_src = cinder::audio::load(cinder::app::loadAsset("countdown.mp3"));
-  background_voice = cinder::audio::Voice::create(e_src);
 }
 
 void MyApp::update() {
@@ -125,9 +124,15 @@ void MyApp::DrawHome() {
                                   hloc.GetX() + hard.GetWidth(),
                                   hloc.GetY() + hard.GetHeight()));
   PrintText("Wach-A-Tile \n Start Game!", color, {600, 100}, {400, 170});
-  PrintText("Easy", color, {600, 30}, {400, 300});
-  PrintText("Medium", color, {600, 30}, {400, 450});
-  PrintText("Hard", color, {600, 30}, {400, 600});
+  PrintText("Easy", color, {600, 30},
+            {easy.GetLocation().GetX() + (easy.GetWidth() / 2),
+             easy.GetLocation().GetY() + (easy.GetHeight() / 2)});
+  PrintText("Medium", color, {600, 30},
+            {medium.GetLocation().GetX() + (medium.GetWidth() / 2),
+             medium.GetLocation().GetY() + (medium.GetHeight() / 2)});
+  PrintText("Hard", color, {600, 30},
+            {hard.GetLocation().GetX() + (hard.GetWidth() / 2),
+             hard.GetLocation().GetY() + (hard.GetHeight() / 2)});
   printed_home = true;
 }
 
@@ -178,6 +183,7 @@ void MyApp::mouseDown(MouseEvent event) {
   if (game_state == GameState::kHome) {
     if (event.isLeft()) {
       if (easy.IsInTile(event.getX(), event.getY())) {
+        background_voice = cinder::audio::Voice::create(e_src);
         draw_tile_speed = 1.10;
         song_name = "The Time of My Life";
         background_voice->start();
@@ -205,6 +211,7 @@ void MyApp::mouseDown(MouseEvent event) {
   }
 
   if (event.isLeft() && event.isAltDown()) {
+    background_voice->stop();
     ResetGame();
   }
 }

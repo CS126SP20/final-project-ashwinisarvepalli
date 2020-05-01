@@ -36,4 +36,9 @@
    - worked on testing
    - added necessary comment code
    - finished all game functionality with home screen, game scree, and game over screen
+   
+ - **4/30/20**
+   - Added a seed for the random tile location generator so it was different each time the game ran
+   - Checked and fixed bugs in the mole_app.cc
+   - Added information to the README.md and created the PROPOSAL.md
 ---

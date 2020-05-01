@@ -4,6 +4,7 @@
 
 #include <cinder/Rand.h>
 #include <mole/engine.h>
+#include <cstdlib>
 
 #include <set>
 
@@ -19,6 +20,9 @@ Engine::Engine(size_t length, size_t tile_size)
 
 Location Engine::GetRandomLocation() {
   Location final_location(0, 0);
+  //check if seeded or not, make sure its seeded
+  //make it seeded if necessary
+  srand(std::chrono::system_clock::now().time_since_epoch().count());
   auto r = cinder::Rand::randInt((length * tile_size) - tile_size);
   auto c = cinder::Rand::randInt((length * tile_size) - tile_size);
   Location loc(r, c);
