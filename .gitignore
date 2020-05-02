@@ -145,6 +145,7 @@ _deps
 
 # Don't track database files.
 # assets/*.db
+assets/mole.db
 assets/tiger.mp3
 assets/patience.mp3
 assets/cosmic.jpg

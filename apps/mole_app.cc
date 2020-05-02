@@ -34,7 +34,7 @@ MyApp::MyApp()
     : player_name{FLAGS_name},
       engine{FLAGS_size, FLAGS_tilesize},
       game_state{GameState::kHome},
-      my_image{gl::Texture2d::create(loadImage(loadAsset("cosmic.jpg")))},
+      bg_image{gl::Texture2d::create(loadImage(loadAsset("cosmic.jpg")))},
       tile_image{gl::Texture::create(loadImage(loadAsset("piano.jpg")))},
       leaderboard{cinder::app::getAssetPath(kDbPath).string()} {}
 
@@ -58,6 +58,13 @@ void MyApp::update() {
   }
   if (game_state == GameState::kPlaying && !background_voice->isPlaying()) {
     game_state = GameState::kGameOver;
+  }
+  if (game_state == GameState::kPlaying) {
+    current_time = ci::app::getElapsedSeconds();
+    if ((current_time - start_time) > draw_tile_speed) {
+      engine.Step();
+      start_time = current_time;
+    }
   }
 }
 
@@ -94,17 +101,12 @@ void MyApp::draw() {
   }
   cinder::gl::clear();
   DrawBackground();
-  current_time = ci::app::getElapsedSeconds();
   DrawTile();
-  if ((current_time - start_time) > draw_tile_speed) {
-    engine.Step();
-    start_time = current_time;
-  }
   DrawScore();
 }
 
 void MyApp::DrawBackground() const {
-  cinder::gl::draw(my_image, getWindowBounds());
+  cinder::gl::draw(bg_image, getWindowBounds());
 }
 
 void MyApp::DrawHome() {

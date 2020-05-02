@@ -46,7 +46,7 @@ class MyApp : public cinder::app::App {
   cinder::audio::SourceFileRef m_src;
   cinder::audio::SourceFileRef h_src;
   const std::string player_name;
-  cinder::gl::Texture2dRef my_image;
+  cinder::gl::Texture2dRef bg_image;
   cinder::gl::TextureRef tile_image;
   size_t current_time;
   size_t start_time;
