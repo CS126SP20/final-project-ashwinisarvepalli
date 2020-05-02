@@ -20,8 +20,8 @@ The following pictures show the 3 different screens possible for this app. The H
 the Game Over Screen respectively
 
 <img src="./assets/Home.png" width="350">
-<img src="file:///Users/apcsp/Desktop/cinder_0.9.2_mac/my-projects/final-project-ashwinisarvepalli/assets/play.png" width="350">
-<img src="file:///Users/apcsp/Desktop/cinder_0.9.2_mac/my-projects/final-project-ashwinisarvepalli/assets/gameover.png" width="350">
+<img src="./assets/play.png" width="350">
+<img src="./assets/gameover.png" width="350">
 
 ### **Building the Project**
 #### **Set Up of the Project**
